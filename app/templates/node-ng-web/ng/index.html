@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App" class="no-js">
+<head>
+  <title>Ng</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+  <div ng-view></div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-translate/angular-translate.js"></script>
+  <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
+
+  <!-- Main -->
+  <script src="scripts/apps/ng-app.js"></script>
+  <script src="scripts/utils/utilities.js"></script>
+  <script src="scripts/services/token-service.js"></script>
+  <script src="scripts/apps/header/header-app.js"></script>
+
+  <!-- Login -->
+  <script src="scripts/apps/login/login-app.js"></script>
+
+  <!-- Management -->
+  <script src="scripts/apps/management/management-app.js"></script>
+
+  <!-- Workspace -->
+  <script src="scripts/apps/workspace/workspace-app.js"></script>
+</body>
+</html>

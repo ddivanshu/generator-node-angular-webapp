@@ -1,0 +1,11 @@
+<nav class="header" ng-controller="Header_Controller">
+  <label id="webapp-label">{{'webapp' | translate}}</label>
+  
+  <label id="alert-box" class="{{alerts.type}}">{{alerts.message}}</label>
+  
+  <ul>
+    <li id="logout-link" ng-show="userLoggedIn">
+      <a ng-click="logout.logout()">{{'logout' | translate}}</a>
+    </li>
+  </ul>
+</nav>

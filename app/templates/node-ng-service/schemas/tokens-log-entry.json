@@ -1,0 +1,28 @@
+{
+	"fields": {
+		"user": {
+			"type": "ObjectId",
+			"ref": "User",
+			"required": true
+		},
+		"lastUse": {
+			"type": "Date",
+			"required": true
+		}
+	},
+	
+	"collection": "TokensLog",
+
+	"indexes": [
+	    {
+	    	"_comment": "Only one token per user",
+	    	"fields": {"user": 1},
+	    	"type": "unique"
+	    }, {
+	    	"_comment": "Token deemed expired after 60 minutes",
+	    	"fields": {"lastUse": 1},
+	    	"type": "ttl",
+	    	"expireAfterSeconds": 3600
+	    }
+	]
+}

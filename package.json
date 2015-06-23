@@ -1,0 +1,33 @@
+{
+  "name": "generator-node-angular-webapp",
+  "version": "0.9.0",
+  "description": "Scaffold out a tiered Node/Angular web application with REST API support.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "mean",
+    "node",
+    "nodejs",
+    "angular",
+    "mongo",
+    "mongodb",
+    "express",
+    "rest",
+    "api"
+  ],
+  "repository": "https://github.com/akalani/generator-node-angular-webapp.git",
+  "author": {
+    "name": "Ashish Kalani",
+    "email": "",
+    "url": "https://github.com/akalani"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "yeoman-generator": "^0.20.1",
+    "yosay": "^1.0.4"
+  }
+}

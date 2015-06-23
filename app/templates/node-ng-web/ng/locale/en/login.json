@@ -1,0 +1,8 @@
+{
+	"must_provide_creds_msg": "Credentials must be provided.",
+	"valid_token_not_generated_msg": "Valid token was not generated.",
+
+	"login": "Log in",
+	"username": "Username",
+	"password": "Password"
+}

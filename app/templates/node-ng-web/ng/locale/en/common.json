@@ -1,0 +1,7 @@
+{
+	"webapp": "Your Name Here",
+	"logout": "Log out",
+
+	"no_response_from_server_msg": "Unable to communicate with the server.",
+	"unable_to_logout_msg": "Unable to logout."
+}
