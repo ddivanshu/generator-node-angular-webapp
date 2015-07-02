@@ -88,7 +88,7 @@ Make sure to source your bash config file in the current terminal session before
             "pattern": "[%-5p][%c] %m"
         }
     }, {
-        "category": “api",
+        "category": "api",
         "type": "console",
         "layout": {
             "type": "pattern",
@@ -102,3 +102,5 @@ Make sure to source your bash config file in the current terminal session before
     }
 }
 ```
+
+More setup steps comming soon ..
