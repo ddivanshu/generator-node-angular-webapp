@@ -1,3 +1,5 @@
+print("Initializing collections ..")
+
 // Put javascript code to initialize any MongoDB collection here. Example below ..
 
 //var sampleItems = [
@@ -11,3 +13,5 @@
 //	}
 //]
 //db.Samples.insert(sampleItems)
+
+print("Done!")

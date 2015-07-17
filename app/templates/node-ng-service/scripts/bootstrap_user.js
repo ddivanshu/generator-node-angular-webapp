@@ -4,7 +4,7 @@
 
 var read = require('read'),
 	async = require('async'),
-	sfwk = require('node-ng-service')
+	sfwk = require('../index')
 
 
 async.waterfall([
@@ -96,9 +96,9 @@ async.waterfall([
     	console.log("Connecting to db ..")
 
     	var dbConfig = {
-    		dbHost: dbHost,
-    		dbPort: dbPort,
-    		dbName: dbName
+    		host: dbHost,
+    		port: dbPort,
+    		database: dbName
     	}
 
     	sfwk.init(dbConfig, function(err) {

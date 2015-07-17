@@ -1,6 +1,6 @@
 # generator-node-angular-webapp
 
-Scaffold out a tiered Node/Angular web application with REST API support
+Scaffold out a tiered Mongo / Express / Angular / Node (MEAN) web application with REST API support
 
 ### Installation
 
@@ -16,7 +16,7 @@ Finally, initiate the generator:
 $ yo node-angular-webapp
 ```
 
-### Setup
+### Setup Guide
 
 The generator will install two directories:
 
@@ -51,13 +51,13 @@ export base_dir=~/my_dir/node-ng-web
 export port=8080
 # Logging
 export LOG4JS_CONFIG=~/my_dir/log4js.json
-# App DB
+# Application DB
 export db_host=localhost
 export db_port=27017
 export db_name=MyDB
 export db_user=mydb_user
 export db_pswd=mydb_user
-# Test DB
+# Test DBs (for unit and E2E tests)
 export test_db_host=localhost
 export test_db_port=27017
 export test_db_user=test_user
@@ -98,9 +98,79 @@ Make sure to source your bash config file in the current terminal session before
     "levels": {
         "sys": "INFO",
         "svc": "DEBUG",
-        “api": "DEBUG"
+        "api": "DEBUG"
     }
 }
 ```
 
-More setup steps comming soon ..
+- Modify Express source to enable graceful server shutdown if a synchronous error arises during request/response operation (look at *node-ng-web/api/handlers/fatal-error-handler.js* for how this is done). You may chooose not to follow this approach, in which case, skip to the next step. As of version 4.11.1, open file *node-ng-web/node_modules/express/lib/router/layer.js*, and comment out the try/catch code in function *Layer.prototype.handle_request*:
+
+```
+Layer.prototype.handle_request = function handle(req, res, next) {
+  var fn = this.handle;
+
+  if (fn.length > 3) {
+    // not a standard request handler
+    return next();
+  }
+
+//  try {
+    fn(req, res, next);
+//  } catch (err) {
+//    next(err);
+//  }
+};
+```
+
+- Setup MongoDB users. Install and run MongoDB, if you haven't already, and execute the following commands or adapt them to your setup:
+
+```sh
+$ mongo
+> use admin
+> db.createUser({user: 'admin', pwd: 'admin', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}]})
+> exit
+$ mongo --host localhost --port 27017 -u admin -p admin --authenticationDatabase admin
+> use admin
+> db.createUser({'user':'mydb_user', 'pwd':'mydb_user', roles:[{role:'readWrite', db:'MyDB'}]})
+> db.createUser({'user':'test_user', 'pwd':'test_user', roles:[{role:'readWrite', db:'Test_UT'}, {role:'readWrite', db:'Test_E2E'}]})
+> exit
+```
+
+You should now be able to connect to database (e.g. application database) as follows:
+
+```sh
+mongo --host localhost --port 27017 -u mydb_user -p mydb_user --authenticationDatabase admin MyDB
+```
+
+- Initialize MongoDB collections and create indexes for MyDB, Test_UT and Test_E2E (or whatever database names you chose). Execute the following script and follow the prompts:
+
+```sh
+$ cd node-ng-service/scripts
+$ ./setup_db.sh
+Enter DB host (localhost):
+Enter DB port (27017):
+Enter DB name: MyDB
+Enter DB user: mydb_user
+Enter DB user password: *
+Re-enter DB user password: *
+Enter authentication DB name (admin):
+```
+
+- Bootstrap users for the reference application. It requires users to be created with one of two roles, "Admin" and "CSR" (customer service representative). Create two users, one for each role:
+
+```sh
+$ cd node-ng-service/scripts
+$ ./bootstrap_user.js
+Enter DB host (localhost):
+Enter DB port (27017):
+Enter DB name: MyDB
+Enter username: admin
+Enter password: *
+Confirm password: *
+Enter email address: admin@admin
+Enter role [Admin, CSR]: Admin
+Enter first name (optional):
+Enter last name (optional):
+```
+
+More setup steps coming soon ..
