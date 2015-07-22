@@ -36,13 +36,8 @@ then
 	fi
 	echo ""
 
-	read -p "Enter authentication DB name (admin): " authDbName
-	if [[ "$authDbName" == "" ]]; then
-		authDbName="admin"
-	fi
-
-	mongo --host $dbHost --port $dbPort -u $dbUser -p $dbUserPwd --authenticationDatabase $authDbName $dbName mongo/init-collections.js
-	mongo --host $dbHost --port $dbPort -u $dbUser -p $dbUserPwd --authenticationDatabase $authDbName $dbName mongo/recreate-indexes.js
+	mongo --host $dbHost --port $dbPort -u $dbUser -p $dbUserPwd $dbName mongo/init-collections.js
+	mongo --host $dbHost --port $dbPort -u $dbUser -p $dbUserPwd $dbName mongo/recreate-indexes.js
 
 else
 

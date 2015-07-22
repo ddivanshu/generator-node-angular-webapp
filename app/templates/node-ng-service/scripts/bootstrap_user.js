@@ -30,75 +30,89 @@ async.waterfall([
     	})
     },
     function(dbHost, dbPort, dbName, callback) {
-    	read({prompt: 'Enter username: '}, function(err, username) {
+        read({prompt: 'Enter DB user: '}, function(err, dbUser) {
 
-    		if (!err && !username) err = new Error("Username must be provided.")
-    		if (err) callback(err)
-    		else {
-    			callback(null, dbHost, dbPort, dbName, username)
-    		}
-    	})
+            callback(err, dbHost, dbPort, dbName, dbUser)
+        })
     },
-    function(dbHost, dbPort, dbName, username, callback) {
-    	read({prompt: 'Enter password: ', silent: true}, function(err, password) {
+    function(dbHost, dbPort, dbName, dbUser, callback) {
+        read({prompt: "Enter DB user's password: "}, function(err, dbPswd) {
 
-    		if (!err && !password) err = new Error("Password must be provided.")
-    		if (err) callback(err)
-    		else {
-    	    	read({prompt: 'Confirm password: ', silent: true}, function(err, confirmedPasswd) {
-
-    	    		if (!err && !confirmedPasswd) err = new Error("Password must be provided.")
-    	    		if (!err && password != confirmedPasswd) err = new Error("Re-entered password does not match.")
-    	    		if (err) callback(err)
-    	    		else {
-    	    			callback(null, dbHost, dbPort, dbName, username, password)
-    	    		}
-    	    	})
-    		}
-    	})
+            callback(err, dbHost, dbPort, dbName, dbUser, dbPswd)
+        })
     },
-    function(dbHost, dbPort, dbName, username, password, callback) {
-    	read({prompt: 'Enter email address: '}, function(err, email) {
+    function(dbHost, dbPort, dbName, dbUser, dbPswd, callback) {
+        read({prompt: 'Enter username: '}, function(err, username) {
 
-    		if (!err && !email) err = new Error("Email address must be provided.")
-    		if (err) callback(err)
-    		else {
-    			callback(null, dbHost, dbPort, dbName, username, password, email)
-    		}
-    	})
+            if (!err && !username) err = new Error("Username must be provided.")
+            if (err) callback(err)
+            else {
+                callback(null, dbHost, dbPort, dbName, dbUser, dbPswd, username)
+            }
+        })
     },
-    function(dbHost, dbPort, dbName, username, password, email, callback) {
-    	read({prompt: 'Enter role [Admin, CSR]: '}, function(err, role) {
+    function(dbHost, dbPort, dbName, dbUser, dbPswd, username, callback) {
+        read({prompt: 'Enter password: ', silent: true}, function(err, password) {
 
-    		if (!err && !role) err = new Error("Role must be provided.")
-    		if (err) callback(err)
-    		else {
-    			callback(null, dbHost, dbPort, dbName, username, password, email, role)
-    		}
-    	})
+            if (!err && !password) err = new Error("Password must be provided.")
+            if (err) callback(err)
+            else {
+                read({prompt: 'Confirm password: ', silent: true}, function(err, confirmedPasswd) {
+
+                    if (!err && !confirmedPasswd) err = new Error("Password must be provided.")
+                    if (!err && password != confirmedPasswd) err = new Error("Re-entered password does not match.")
+                    if (err) callback(err)
+                    else {
+                        callback(null, dbHost, dbPort, dbName, dbUser, dbPswd, username, password)
+                    }
+                })
+            }
+        })
     },
-    function(dbHost, dbPort, dbName, username, password, email, role, callback) {
-    	read({prompt: 'Enter first name (optional): '}, function(err, firstName) {
+    function(dbHost, dbPort, dbName, dbUser, dbPswd, username, password, callback) {
+        read({prompt: 'Enter email address: '}, function(err, email) {
 
-    		callback(err, dbHost, dbPort, dbName, username, password, email, role, firstName)
-    	})
+            if (!err && !email) err = new Error("Email address must be provided.")
+            if (err) callback(err)
+            else {
+                callback(null, dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email)
+            }
+        })
     },
-    function(dbHost, dbPort, dbName, username, password, email, role, firstName, callback) {
-    	read({prompt: 'Enter last name (optional): '}, function(err, lastName) {
+    function(dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, callback) {
+        read({prompt: 'Enter role [Admin, Analyst]: '}, function(err, role) {
 
-    		console.log()
-    		callback(err, dbHost, dbPort, dbName, username, password, email, role, firstName, lastName)
-    	})
+            if (!err && !role) err = new Error("Role must be provided.")
+            if (err) callback(err)
+            else {
+                callback(null, dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, role)
+            }
+        })
+    },
+    function(dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, role, callback) {
+        read({prompt: 'Enter first name (optional): '}, function(err, firstName) {
+
+            callback(err, dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, role, firstName)
+        })
+    },
+    function(dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, role, firstName, callback) {
+        read({prompt: 'Enter last name (optional): '}, function(err, lastName) {
+
+            console.log()
+            callback(err, dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, role, firstName, lastName)
+        })
     },
 
-    function(dbHost, dbPort, dbName, username, password, email, role, firstName, lastName, callback) {
+    function(dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, role, firstName, lastName, callback) {
 
     	console.log("Connecting to db ..")
 
     	var dbConfig = {
     		host: dbHost,
     		port: dbPort,
-    		database: dbName
+    		database: dbName,
+            user: dbUser,
+            password: dbPswd
     	}
 
     	sfwk.init(dbConfig, function(err) {

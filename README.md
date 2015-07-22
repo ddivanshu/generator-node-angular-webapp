@@ -130,16 +130,19 @@ $ mongo
 > db.createUser({user: 'admin', pwd: 'admin', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}]})
 > exit
 $ mongo --host localhost --port 27017 -u admin -p admin --authenticationDatabase admin
-> use admin
+> use MyDB
 > db.createUser({'user':'mydb_user', 'pwd':'mydb_user', roles:[{role:'readWrite', db:'MyDB'}]})
-> db.createUser({'user':'test_user', 'pwd':'test_user', roles:[{role:'readWrite', db:'Test_UT'}, {role:'readWrite', db:'Test_E2E'}]})
+> use Test_UT
+> db.createUser({'user':'test_user', 'pwd':'test_user', roles:[{role:'readWrite', db:'Test_UT'}]})
+> use Test_E2E
+> db.createUser({'user':'test_user', 'pwd':'test_user', roles:[{role:'readWrite', db:'Test_E2E'}]})
 > exit
 ```
 
-You should now be able to connect to database (e.g. application database) as follows:
+Users are saved in the *systerm.users* collection in *admin* database. You should now be able to connect to a database (e.g. application database) as follows:
 
 ```sh
-mongo --host localhost --port 27017 -u mydb_user -p mydb_user --authenticationDatabase admin MyDB
+mongo --host localhost --port 27017 -u mydb_user -p mydb_user MyDB
 ```
 
 - Initialize MongoDB collections and create indexes for MyDB, Test_UT and Test_E2E (or whatever database names you chose). Execute the following script and follow the prompts:
@@ -156,7 +159,7 @@ Re-enter DB user password: *
 Enter authentication DB name (admin):
 ```
 
-- Bootstrap users for the reference application. It requires users to be created with one of two roles, "Admin" and "CSR" (customer service representative). Create two users, one for each role:
+- Bootstrap users for the reference application. The application requires users to be created with one of two roles, "Admin" and "CSR" (customer service representative). Create two users, one for each role:
 
 ```sh
 $ cd node-ng-service/scripts
@@ -164,6 +167,8 @@ $ ./bootstrap_user.js
 Enter DB host (localhost):
 Enter DB port (27017):
 Enter DB name: MyDB
+Enter DB user: mydb_user
+Enter DB user's password: *
 Enter username: admin
 Enter password: *
 Confirm password: *
@@ -171,6 +176,24 @@ Enter email address: admin@admin
 Enter role [Admin, CSR]: Admin
 Enter first name (optional):
 Enter last name (optional):
+```
+
+- Run service layer unit tests using Test_UT database (some might consider these functional tests). The tests use Chai as the assertion framework. Mocha is a good choice for a test runner. To use Mocha, install it first if you haven't already:
+
+```sh
+$ npm install -g mocha
+```
+
+Now run the tests. Note that prior to every run of the tests, a seeder script is executed that seeds fresh golden test data.
+
+```sh
+$ cd node-ng-service
+$ mocha
+```
+
+- Run browser-based Protractor E2E tests. In order to run the E2E tests, we must first run our node server application in E2E mode. (Details to follow soon)
+
+```sh
 ```
 
 More setup steps coming soon ..

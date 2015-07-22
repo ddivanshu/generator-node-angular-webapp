@@ -13,7 +13,9 @@ before(function(done) {
 	var dbConfig = {
 		host: process.env.test_db_host,
 		port: process.env.test_db_port,
-		database: process.env.test_ut_db_name
+		database: process.env.test_ut_db_name,
+		user: process.env.test_db_user,
+		password: process.env.test_db_pswd
 	}
 
 	var sfwk = require('../index')
