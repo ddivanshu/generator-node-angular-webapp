@@ -80,7 +80,7 @@ async.waterfall([
         })
     },
     function(dbHost, dbPort, dbName, dbUser, dbPswd, username, password, email, callback) {
-        read({prompt: 'Enter role [Admin, Analyst]: '}, function(err, role) {
+        read({prompt: 'Enter role [Admin, CSR]: '}, function(err, role) {
 
             if (!err && !role) err = new Error("Role must be provided.")
             if (err) callback(err)

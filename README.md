@@ -4,13 +4,19 @@ Scaffold out a tiered Mongo / Express / Angular / Node (MEAN) web application wi
 
 ### Installation
 
-To install generator-node-angular-webapp from npm, run:
+To install *generator-node-angular-webapp* from npm, run:
 
 ```
 $ npm install -g generator-node-angular-webapp
 ```
 
-Finally, initiate the generator:
+Note that *generator-node-angular-webapp* is a Yeoman generator. In case you are not familiar with Yeoman, it is a scaffolding framework for web applications. If you haven't already, install Yeoman using npm:
+
+```sh
+$ npm install -g yo
+```
+
+Now, initiate the generator:
 
 ```
 $ yo node-angular-webapp
@@ -168,7 +174,7 @@ Enter DB host (localhost):
 Enter DB port (27017):
 Enter DB name: MyDB
 Enter DB user: mydb_user
-Enter DB user's password: *
+Enter DB user password: *
 Enter username: admin
 Enter password: *
 Confirm password: *
@@ -191,9 +197,27 @@ $ cd node-ng-service
 $ mocha
 ```
 
-- Run browser-based Protractor E2E tests. In order to run the E2E tests, we must first run our node server application in E2E mode. (Details to follow soon)
+- Run browser-based Protractor E2E tests. In order to run the E2E tests, we must first run our node server application in E2E mode.
 
 ```sh
+$ cd node-ng-web
+$ grunt start_e2e
 ```
 
-More setup steps coming soon ..
+Download Selenium jar and chrome driver into 'protractor' node module. Then run the E2E tests. Note that Jasmine is used as the test runner and assertion framework. This and other properties, such as E2E server url and port, can be updated in *node-ng-web/e2e/conf.js*.
+
+```sh
+(In a separate shell terminal)
+$ cd node-ng-web
+$ grunt install_chromedriver
+$ grunt run_e2e
+```
+
+- We are now ready to launch the reference web application. The application provides bearer token based authentication and loads different views based on the user's role.
+
+```sh
+$ cd node-ng-web
+$ grunt start
+```
+
+Now load the url 'http://localhost:8080' in your browser. The login view should be loaded. Login as Admin user or CSR user and note the different views being loaded based on the role.

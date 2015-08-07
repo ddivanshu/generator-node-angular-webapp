@@ -15,9 +15,7 @@ if (process.argv.length > 2 && process.argv[2] == 'e2e') {
 
 // ============ Load application and start server ============== //
 
-var http = require('http'),
-	agent = require('webkit-devtools-agent')
-
+var http = require('http')
 
 logger.info("Starting server ..")
 
@@ -140,6 +138,8 @@ function _shutdown() {
 //Open web interface at http://c4milo.github.io/node-webkit-agent/26.0.1410.65/inspector.html?host=localhost:9999&page=0 (for node 0.10)
 
 process.on('SIGUSR2', function () {
+
+	var agent = require('webkit-devtools-agent')
 	if (agent.server) {
 		logger.info("Stopping devtools agent..")
 		agent.stop()
