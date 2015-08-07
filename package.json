@@ -1,13 +1,13 @@
 {
   "name": "generator-node-angular-webapp",
-  "version": "0.9.3",
-  "description": "Scaffold out a tiered Node/Angular web application with REST API support.",
+  "version": "1.0.0",
+  "description": "Scaffold out a tiered Mongo / Express / Angular / Node (MEAN) web application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "yeoman-generator",
+    "yeoman",
     "mean",
     "node",
     "nodejs",

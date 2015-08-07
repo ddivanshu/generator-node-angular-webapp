@@ -1,6 +1,6 @@
 # generator-node-angular-webapp
 
-Scaffold out a tiered Mongo / Express / Angular / Node (MEAN) web application with REST API support
+Scaffold out a tiered Mongo / Express / Angular / Node (MEAN) web application
 
 ### Installation
 
