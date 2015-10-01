@@ -1,6 +1,6 @@
 {
   "name": "generator-node-angular-webapp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffold out a tiered Mongo / Express / Angular / Node (MEAN) web application",
   "main": "index.js",
   "scripts": {

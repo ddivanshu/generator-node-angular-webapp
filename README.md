@@ -2,6 +2,20 @@
 
 Scaffold out a tiered Mongo / Express / Angular / Node (MEAN) web application
 
+### Summary
+
+**generator-node-angular-webapp** is a full-fledged scaffolding project for rapidly building Node / Mongo web applications, paired with Angular clients. It scaffolds the following design patterns and features:
+
+- Clear separation between the service and web tiers of an application.
+- Services based business logic.
+- REST request handlers.
+- Consistent error handling and transport between service, web and Angular client tier.
+- Mocha/chai unit testing.
+- Angular code to bootstrap views and make REST callouts.
+- Locale based translation.
+- Protractor E2E testing.
+- Reference application demonstrating bearer token generation and authentication.
+
 ### Installation
 
 To install *generator-node-angular-webapp* from npm, run:
